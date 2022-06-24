@@ -6,7 +6,7 @@ import (
 )
 
 type HttpFile struct {
-	requestMap map[string]*CapturedHttpRequest
+	requestMap map[string][]string
 }
 
 type CapturedHttpRequest struct {
@@ -19,7 +19,7 @@ type CapturedHttpRequest struct {
 
 func New(contents io.Reader) *HttpFile {
 	httpFile := &HttpFile{
-		requestMap: make(map[string]*CapturedHttpRequest),
+		requestMap: make(map[string][]string),
 	}
 	httpFile.Load(contents)
 	return httpFile
@@ -36,7 +36,3 @@ const (
 var (
 	httpMethods = []string{"GET", "HEAD", "POST"}
 )
-
-func (f *HttpFile) GetRequestMap() map[string]*CapturedHttpRequest {
-	return f.requestMap
-}
